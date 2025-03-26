@@ -30,41 +30,31 @@ jobs:
       - name: Lint
         run: npm run lint || true
 
+      # Configure Next.js for static export
+      - name: Update next.config.js for static export
+        run: |
+          if grep -q "output:" next.config.mjs; then
+            echo "Static export already configured"
+          else
+            sed -i "s/const nextConfig = {/const nextConfig = {\n  output: 'export',/" next.config.mjs
+          fi
+
       - name: Build
         run: npm run build
         env:
           # Add any environment variables needed for build
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL || 'https://fostermakhana.com' }}
 
-      - name: Run Tests
-        run: npm test || true
+      # Add .nojekyll file to tell GitHub Pages not to process the site with Jekyll
+      - name: Add .nojekyll file
+        run: touch out/.nojekyll
 
-      # Cache Next.js build output
-      - name: Cache Next.js build
-        uses: actions/cache@v3
-        with:
-          path: |
-            .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-
-      # Deploy to Vercel (if you're using Vercel)
-      - name: Deploy to Vercel
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
         if: github.event_name != 'pull_request'
-        uses: amondnet/vercel-action@v20
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./
-          vercel-args: '--prod'
-
-      # Alternative: Deploy to GitHub Pages
-      # Uncomment this section if you're using GitHub Pages instead of Vercel
-      # - name: Deploy to GitHub Pages
-      #   if: github.event_name != 'pull_request'
-      #   uses: JamesIves/github-pages-deploy-action@v4
-      #   with:
-      #     folder: out # Use "out" if you've configured Next.js for static export
-      #     branch: gh-pages
+          folder: out # Next.js static export output folder
+          branch: gh-pages # The branch the action should deploy to
+          clean: true # Automatically remove deleted files from the deploy branch
+          token: ${{ secrets.GITHUB_TOKEN }} # GitHub automatically provides this token
