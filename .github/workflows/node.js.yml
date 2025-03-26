@@ -1,4 +1,4 @@
-name: Build and Deploy Foster Makhana Website.
+name: Build and Deploy Foster Makhana Website
 
 on:
   push:
