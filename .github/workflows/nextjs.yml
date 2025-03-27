@@ -52,6 +52,16 @@ jobs:
           # Add any environment variables needed for build
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL || 'https://fostermakhana.com' }}
 
+      - name: Verify build output
+        run: |
+          if [ -d "out" ]; then
+            echo "Build directory 'out' exists."
+            ls -la out
+          else
+            echo "❌ Build directory 'out' is missing! Deployment will fail."
+            exit 1
+          fi
+
       # Add .nojekyll file to tell GitHub Pages not to process the site with Jekyll
       - name: Add .nojekyll file
         run: touch out/.nojekyll
