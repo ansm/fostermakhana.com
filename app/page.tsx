@@ -34,7 +34,7 @@ export default function Home() {
     const section = document.getElementById(sectionId)
     if (section) {
       window.scrollTo({
-        top: section.offsetTop - 80,
+        top: section.offsetTop - 70,
         behavior: "smooth",
       })
     }
@@ -42,17 +42,17 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-100 to-orange-100">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-200/70">
       <Navbar activeSection={activeSection} scrollToSection={scrollToSection} scrollY={scrollY} />
 
       <FloatingCallButton />
 
-      <main className="pt-20">
+      <main className="pt-14 md:pt-16">
         <section id="home">
-          <HomeSection />
+          <HomeSection scrollToSection={scrollToSection} />
         </section>
 
-        <section id="contact" className="mb-24">
+        <section id="contact" className="mb-8">
           <ContactSection />
         </section>
       </main>
