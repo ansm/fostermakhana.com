@@ -172,7 +172,7 @@ export default function HomeSection({ scrollToSection }: { scrollToSection: (sec
               Premium Quality
             </span>
             <br />
-            Fox Nuts for Your Health
+            Fox Nuts for Improved Health
           </h2>
           <p className="text-amber-950 text-base md:text-lg mb-6 md:mb-8">
             Experience the authentic taste and exceptional health benefits of our premium Makhana (Fox Nuts), carefully
@@ -185,7 +185,7 @@ export default function HomeSection({ scrollToSection }: { scrollToSection: (sec
             onClick={() => scrollToSection("contact")}
             aria-label="Explore our products and contact us"
           >
-            Explore Products <ArrowRight size={18} aria-hidden="true" />
+            Enquire Now <ArrowRight size={18} aria-hidden="true" />
           </motion.button>
         </motion.div>
         <motion.div className="lg:w-1/2 w-full mb-6 lg:mb-0" variants={fadeInUp}>
@@ -411,7 +411,7 @@ export default function HomeSection({ scrollToSection }: { scrollToSection: (sec
                       <History size={20} className="text-white" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-semibold text-amber-950">
-                      From Bihar's Wetlands to Your Home
+                      From Bihar's Wetlands to Your Doorstep
                     </h3>
                   </motion.div>
 
