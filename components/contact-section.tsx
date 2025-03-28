@@ -58,33 +58,33 @@ export default function ContactSection() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16 pb-24">
+    <div className="container mx-auto px-4 py-8 md:py-16 pb-12">
       <motion.div
-        className="text-center mb-12"
+        className="text-center mb-8 md:mb-12"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={staggerContainer}
       >
-        <motion.h2 className="text-3xl md:text-4xl font-bold mb-4" variants={fadeInUp}>
+        <motion.h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4" variants={fadeInUp}>
           Get in{" "}
           <span className="bg-gradient-to-r from-amber-900 to-orange-800 bg-clip-text text-transparent">Touch</span>
         </motion.h2>
-        <motion.p className="text-amber-950 max-w-3xl mx-auto" variants={fadeInUp}>
+        <motion.p className="text-amber-950 max-w-3xl mx-auto px-2" variants={fadeInUp}>
           Have questions about our products or want to place a bulk order? We'd love to hear from you!
         </motion.p>
       </motion.div>
 
       <motion.div
-        className="grid lg:grid-cols-2 gap-12 mb-16"
+        className="grid lg:grid-cols-2 gap-6 md:gap-12 mb-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={staggerContainer}
       >
         <motion.div variants={fadeInUp}>
-          <div className="bg-white p-8 rounded-xl shadow-md h-full">
-            <h3 className="text-2xl font-semibold mb-6 text-amber-950">Send us a Message</h3>
+          <div className="bg-white p-5 md:p-8 rounded-xl shadow-md h-full">
+            <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-amber-950">Send us a Message</h3>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="name" className="block text-sm font-medium text-amber-900 mb-1">
@@ -97,7 +97,7 @@ export default function ContactSection() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
+                  className="w-full px-3 md:px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
                   placeholder="John Doe"
                 />
               </div>
@@ -112,7 +112,7 @@ export default function ContactSection() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
+                  className="w-full px-3 md:px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
                   placeholder="john@example.com"
                 />
               </div>
@@ -126,11 +126,11 @@ export default function ContactSection() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
+                  className="w-full px-3 md:px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
                   placeholder="+91 98765 43210"
                 />
               </div>
-              <div className="mb-6">
+              <div className="mb-5 md:mb-6">
                 <label htmlFor="message" className="block text-sm font-medium text-amber-900 mb-1">
                   Your Message
                 </label>
@@ -140,14 +140,14 @@ export default function ContactSection() {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows={6}
-                  className="w-full px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
+                  rows={4}
+                  className="w-full px-3 md:px-4 py-2 border border-amber-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-700"
                   placeholder="How can we help you?"
                 ></textarea>
               </div>
               <motion.button
                 type="submit"
-                className="w-full bg-gradient-to-r from-amber-800 to-orange-800 text-white py-3 rounded-md font-medium hover:shadow-lg transition-shadow disabled:opacity-70"
+                className="w-full bg-gradient-to-r from-amber-800 to-orange-800 text-white py-2.5 md:py-3 rounded-md font-medium hover:shadow-lg transition-shadow disabled:opacity-70"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={isSubmitting}
@@ -155,7 +155,7 @@ export default function ContactSection() {
                 {isSubmitting ? "Sending..." : "Send Message"}
               </motion.button>
               {submitSuccess && (
-                <p className="mt-4 text-green-700 text-center">
+                <p className="mt-4 text-green-700 text-center text-sm md:text-base">
                   Thank you for your message! We'll get back to you soon.
                 </p>
               )}
@@ -164,14 +164,14 @@ export default function ContactSection() {
         </motion.div>
 
         <motion.div variants={fadeInUp}>
-          <div className="bg-white p-8 rounded-xl shadow-md h-full">
-            <h3 className="text-2xl font-semibold mb-6 text-amber-950">Contact Information</h3>
-            <div className="space-y-6">
+          <div className="bg-white p-5 md:p-8 rounded-xl shadow-md h-full">
+            <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-amber-950">Contact Information</h3>
+            <div className="space-y-4 md:space-y-6">
               <div className="flex items-start">
-                <MapPin className="h-6 w-6 text-amber-800 mr-3 mt-0.5" />
+                <MapPin className="h-5 w-5 md:h-6 md:w-6 text-amber-800 mr-2 md:mr-3 mt-0.5" />
                 <div>
-                  <h4 className="font-medium text-amber-950">Address</h4>
-                  <p className="text-amber-900">
+                  <h4 className="font-medium text-amber-950 text-sm md:text-base">Address</h4>
+                  <p className="text-amber-900 text-sm md:text-base">
                     Foster Makhana
                     <br />
                     At- Singhwara South, PS Singhwara,
@@ -181,33 +181,33 @@ export default function ContactSection() {
                 </div>
               </div>
               <div className="flex items-start">
-                <Phone className="h-6 w-6 text-amber-800 mr-3 mt-0.5" />
+                <Phone className="h-5 w-5 md:h-6 md:w-6 text-amber-800 mr-2 md:mr-3 mt-0.5" />
                 <div>
-                  <h4 className="font-medium text-amber-950">Phone</h4>
-                  <p className="text-amber-900">+91 97255 44004</p>
-                  <p className="text-amber-900">+91 98241 44700</p>
-                  <p className="text-amber-900">+91 84606 53119 (Customer Support)</p>
+                  <h4 className="font-medium text-amber-950 text-sm md:text-base">Phone</h4>
+                  <p className="text-amber-900 text-sm md:text-base">+91 97255 44004</p>
+                  <p className="text-amber-900 text-sm md:text-base">+91 98241 44700</p>
+                  <p className="text-amber-900 text-sm md:text-base">+91 84606 53119 (Customer Support)</p>
                 </div>
               </div>
               <div className="flex items-start">
-                <Mail className="h-6 w-6 text-amber-800 mr-3 mt-0.5" />
+                <Mail className="h-5 w-5 md:h-6 md:w-6 text-amber-800 mr-2 md:mr-3 mt-0.5" />
                 <div>
-                  <h4 className="font-medium text-amber-950">Email</h4>
-                  <p className="text-amber-900">contact@fostermakhana.com</p>
+                  <h4 className="font-medium text-amber-950 text-sm md:text-base">Email</h4>
+                  <p className="text-amber-900 text-sm md:text-base">contact@fostermakhana.com</p>
                 </div>
               </div>
               <div className="flex items-start">
-                <Building className="h-6 w-6 text-amber-800 mr-3 mt-0.5" />
+                <Building className="h-5 w-5 md:h-6 md:w-6 text-amber-800 mr-2 md:mr-3 mt-0.5" />
                 <div>
-                  <h4 className="font-medium text-amber-950">Legal Name</h4>
-                  <p className="text-amber-900">Foster Makhana</p>
+                  <h4 className="font-medium text-amber-950 text-sm md:text-base">Legal Name</h4>
+                  <p className="text-amber-900 text-sm md:text-base">Foster Makhana</p>
                 </div>
               </div>
               <div className="flex items-start">
-                <FileText className="h-6 w-6 text-amber-800 mr-3 mt-0.5" />
+                <FileText className="h-5 w-5 md:h-6 md:w-6 text-amber-800 mr-2 md:mr-3 mt-0.5" />
                 <div>
-                  <h4 className="font-medium text-amber-950">GST Number</h4>
-                  <p className="text-amber-900">10ABCDE1234F1Z5</p>
+                  <h4 className="font-medium text-amber-950 text-sm md:text-base">GST Number</h4>
+                  <p className="text-amber-900 text-sm md:text-base">10ABCDE1234F1Z5</p>
                 </div>
               </div>
               <div className="flex items-start">
@@ -221,16 +221,16 @@ export default function ContactSection() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-6 w-6 text-amber-800 mr-3 mt-0.5"
+                  className="h-5 w-5 md:h-6 md:w-6 text-amber-800 mr-2 md:mr-3 mt-0.5"
                 >
                   <rect width="18" height="18" x="3" y="3" rx="2" />
                   <path d="M3 9h18" />
                   <path d="M9 21V9" />
                 </svg>
                 <div>
-                  <h4 className="font-medium text-amber-950">Business Hours</h4>
-                  <p className="text-amber-900">Monday - Saturday: 9:00 AM - 6:00 PM</p>
-                  <p className="text-amber-900">Sunday: Closed</p>
+                  <h4 className="font-medium text-amber-950 text-sm md:text-base">Business Hours</h4>
+                  <p className="text-amber-900 text-sm md:text-base">Monday - Saturday: 9:00 AM - 6:00 PM</p>
+                  <p className="text-amber-900 text-sm md:text-base">Sunday: Closed</p>
                 </div>
               </div>
             </div>

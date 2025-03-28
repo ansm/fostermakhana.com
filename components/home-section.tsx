@@ -10,10 +10,8 @@ import {
   Heart,
   Weight,
   Moon,
-  Brain,
   Apple,
   Sparkles,
-  Utensils,
   Dumbbell,
   Award,
   ChevronLeft,
@@ -24,12 +22,30 @@ import {
 } from "lucide-react"
 import Image from "next/image"
 
-export default function HomeSection() {
+// Add the scrollToSection prop to the component
+export default function HomeSection({ scrollToSection }: { scrollToSection: (sectionId: string) => void }) {
   // Carousel state
   const [currentReviewPage, setCurrentReviewPage] = useState(0)
   const reviewsPerPage = 3
   const reviewContainerRef = useRef<HTMLDivElement>(null)
   const reviewControls = useAnimation()
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check if mobile on mount and window resize
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    // Initial check
+    checkIfMobile()
+
+    // Add event listener
+    window.addEventListener("resize", checkIfMobile)
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkIfMobile)
+  }, [])
 
   // Auto scroll for reviews
   useEffect(() => {
@@ -42,12 +58,12 @@ export default function HomeSection() {
         { name: "Meera Joshi", location: "Pune", rating: 5 },
         { name: "Arjun Kapoor", location: "Hyderabad", rating: 4 },
       ]
-      const maxPages = Math.ceil(reviewsData.length / reviewsPerPage) - 1
+      const maxPages = Math.ceil(reviewsData.length / (isMobile ? 1 : reviewsPerPage)) - 1
       setCurrentReviewPage((prev) => (prev >= maxPages ? 0 : prev + 1))
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [isMobile])
 
   // Update carousel position when page changes
   useEffect(() => {
@@ -68,7 +84,7 @@ export default function HomeSection() {
       { name: "Meera Joshi", location: "Pune", rating: 5 },
       { name: "Arjun Kapoor", location: "Hyderabad", rating: 4 },
     ]
-    const maxPages = Math.ceil(reviewsData.length / reviewsPerPage) - 1
+    const maxPages = Math.ceil(reviewsData.length / (isMobile ? 1 : reviewsPerPage)) - 1
     setCurrentReviewPage((prev) => (prev <= 0 ? maxPages : prev - 1))
   }
 
@@ -81,7 +97,7 @@ export default function HomeSection() {
       { name: "Meera Joshi", location: "Pune", rating: 5 },
       { name: "Arjun Kapoor", location: "Hyderabad", rating: 4 },
     ]
-    const maxPages = Math.ceil(reviewsData.length / reviewsPerPage) - 1
+    const maxPages = Math.ceil(reviewsData.length / (isMobile ? 1 : reviewsPerPage)) - 1
     setCurrentReviewPage((prev) => (prev >= maxPages ? 0 : prev + 1))
   }
 
@@ -141,38 +157,40 @@ export default function HomeSection() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 py-8 md:py-16">
       {/* Hero Section */}
       <motion.div
-        className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 mb-24"
+        className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-12 mb-16 md:mb-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={staggerContainer}
       >
-        <motion.div className="lg:w-1/2" variants={fadeInUp}>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+        <motion.div className="lg:w-1/2 w-full text-center lg:text-left" variants={fadeInUp}>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 leading-tight">
             <span className="bg-gradient-to-r from-amber-900 to-orange-800 bg-clip-text text-transparent">
               Premium Quality
             </span>
             <br />
             Fox Nuts for Your Health
           </h1>
-          <p className="text-amber-950 text-lg mb-8">
+          <p className="text-amber-950 text-base md:text-lg mb-6 md:mb-8">
             Experience the authentic taste and exceptional health benefits of our premium Makhana (Fox Nuts), carefully
             sourced and processed to preserve their natural goodness.
           </p>
+          {/* Update the button in the hero section to use the scrollToSection function */}
           <motion.button
-            className="bg-gradient-to-r from-amber-800 to-orange-800 text-white px-8 py-3 rounded-full font-medium flex items-center gap-2 hover:shadow-lg transition-shadow"
+            className="bg-gradient-to-r from-amber-800 to-orange-800 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full font-medium flex items-center gap-2 hover:shadow-lg transition-shadow mx-auto lg:mx-0"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => scrollToSection("contact")}
           >
             Explore Products <ArrowRight size={18} />
           </motion.button>
         </motion.div>
-        <motion.div className="lg:w-1/2" variants={fadeInUp}>
-          <div className="relative h-[300px] md:h-[400px] w-full rounded-2xl overflow-hidden shadow-xl">
-            <Image src="/makhana1.jpeg" alt="Premium Makhana in a rustic bowl" fill className="object-cover" priority />
+        <motion.div className="lg:w-1/2 w-full mb-6 lg:mb-0" variants={fadeInUp}>
+          <div className="relative h-[250px] sm:h-[300px] md:h-[400px] w-full rounded-2xl overflow-hidden shadow-xl">
+            <Image src="/images/makhana1.jpeg" alt="Premium Makhana in a rustic bowl" fill className="object-cover" priority />
             <div className="absolute inset-0 bg-gradient-to-tr from-amber-700/10 to-orange-700/10 mix-blend-overlay"></div>
           </div>
         </motion.div>
@@ -180,45 +198,48 @@ export default function HomeSection() {
 
       {/* About Makhana Section */}
       <motion.div
-        className="mb-24"
+        className="mb-16 md:mb-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={staggerContainer}
       >
-        <motion.div className="text-center mb-12" variants={fadeInUp}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <motion.div className="text-center mb-8 md:mb-12" variants={fadeInUp}>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
             What Makes Our{" "}
             <span className="bg-gradient-to-r from-amber-900 to-orange-800 bg-clip-text text-transparent">
               Makhana Special
             </span>
           </h2>
-          <p className="text-amber-950 max-w-3xl mx-auto">
+          <p className="text-amber-950 max-w-3xl mx-auto px-2">
             Makhana, also known as fox nuts or lotus seeds, are not just delicious but packed with numerous health
             benefits that make them a perfect snack for all ages.
           </p>
         </motion.div>
 
-        <motion.div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8" variants={staggerContainer}>
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8"
+          variants={staggerContainer}
+        >
           {[
             {
-              icon: <Leaf className="h-10 w-10 text-green-700" />,
+              icon: <Leaf className="h-8 w-8 md:h-10 md:w-10 text-green-700" />,
               title: "100% Natural",
               description:
                 "Harvested from natural water bodies, our Makhana are completely organic and free from chemicals.",
             },
             {
-              icon: <Shield className="h-10 w-10 text-amber-800" />,
+              icon: <Shield className="h-8 w-8 md:h-10 md:w-10 text-amber-800" />,
               title: "Rich in Nutrients",
               description: "High in protein, low in fat, and packed with antioxidants, magnesium, and potassium.",
             },
             {
-              icon: <Award className="h-10 w-10 text-orange-800" />,
+              icon: <Award className="h-8 w-8 md:h-10 md:w-10 text-orange-800" />,
               title: "Premium Quality",
               description: "Carefully selected and processed to ensure the highest quality and authentic taste.",
             },
             {
-              icon: <Package className="h-10 w-10 text-amber-900" />,
+              icon: <Package className="h-8 w-8 md:h-10 md:w-10 text-amber-900" />,
               title: "Versatile Snack",
               description: "Perfect for roasting, adding to curries, or enjoying as a healthy on-the-go snack.",
             },
@@ -236,15 +257,15 @@ export default function HomeSection() {
               <div
                 className="absolute inset-0 opacity-10"
                 style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d97706' fillOpacity='0.1' fillRule='evenodd'/%3E%3C/svg%3E")`,
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d97706' fillOpacity='0.1' fillRule='evenodd'/%3E%3C/svg%3E")`,
                 }}
               ></div>
-              <div className="relative p-6 z-10">
-                <div className="mb-4 bg-gradient-to-br from-amber-50/80 to-orange-50/80 w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-sm shadow-inner">
+              <div className="relative p-4 md:p-6 z-10">
+                <div className="mb-3 md:mb-4 bg-gradient-to-br from-amber-50/80 to-orange-50/80 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center backdrop-blur-sm shadow-inner">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-amber-950">{item.title}</h3>
-                <p className="text-amber-900">{item.description}</p>
+                <h3 className="text-lg md:text-xl font-semibold mb-1 md:mb-2 text-amber-950">{item.title}</h3>
+                <p className="text-amber-900 text-sm md:text-base">{item.description}</p>
               </div>
             </motion.div>
           ))}
@@ -254,18 +275,18 @@ export default function HomeSection() {
       {/* Our Story Section - Enhanced with animations, colors and icons */}
       <motion.div
         id="our-story"
-        className="mb-24 overflow-hidden"
+        className="mb-16 md:mb-24 overflow-hidden"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={staggerContainer}
       >
-        <motion.div className="text-center mb-12" variants={fadeInUp}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <motion.div className="text-center mb-8 md:mb-12" variants={fadeInUp}>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
             Our{" "}
             <span className="bg-gradient-to-r from-amber-900 to-orange-800 bg-clip-text text-transparent">Story</span>
           </h2>
-          <p className="text-amber-950 max-w-3xl mx-auto">
+          <p className="text-amber-950 max-w-3xl mx-auto px-2">
             From the wetlands of Bihar to your table - discover the journey behind Foster Makhana.
           </p>
         </motion.div>
@@ -273,7 +294,7 @@ export default function HomeSection() {
         <div className="relative">
           {/* Background decorative elements */}
           <motion.div
-            className="absolute -top-10 -left-10 text-amber-200/20 z-0"
+            className="absolute -top-10 -left-10 text-amber-200/20 z-0 hidden md:block"
             initial={{ opacity: 0, rotate: -20 }}
             whileInView={{ opacity: 1, rotate: 0 }}
             transition={{ duration: 1.5 }}
@@ -282,7 +303,7 @@ export default function HomeSection() {
           </motion.div>
 
           <motion.div
-            className="absolute -bottom-10 -right-10 text-orange-200/20 z-0"
+            className="absolute -bottom-10 -right-10 text-orange-200/20 z-0 hidden md:block"
             initial={{ opacity: 0, rotate: 20 }}
             whileInView={{ opacity: 1, rotate: 0 }}
             transition={{ duration: 1.5, delay: 0.3 }}
@@ -298,7 +319,7 @@ export default function HomeSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="h-[300px] md:h-[550px] w-full relative">
+              <div className="h-[250px] sm:h-[300px] md:h-[400px] lg:h-[550px] w-full relative">
                 <Image
                   src="/images/fm-story-2.png"
                   alt="Makhana growing in Bihar wetlands"
@@ -307,9 +328,9 @@ export default function HomeSection() {
                   style={{ objectPosition: "left" }}
                 />
 
-                {/* Interactive hotspots on the image */}
+                {/* Interactive hotspots on the image - hide on small screens */}
                 <motion.div
-                  className="absolute top-1/4 left-1/4 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-lg cursor-pointer"
+                  className="absolute top-1/4 left-1/4 bg-white/80 backdrop-blur-sm p-1.5 md:p-2 rounded-full shadow-lg cursor-pointer hidden sm:block"
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
                   initial={{ opacity: 0 }}
@@ -319,25 +340,21 @@ export default function HomeSection() {
                   <motion.div
                     animate={{
                       scale: [1, 1.2, 1],
-                      boxShadow: [
-                        "0 0 0 0 rgba(251, 191, 36, 0.7)",
-                        "0 0 0 10px rgba(251, 191, 36, 0)",
-                        "0 0 0 0 rgba(251, 191, 36, 0)",
-                      ],
+                      opacity: [1, 0.8, 1],
                     }}
                     transition={{
                       duration: 2,
                       repeat: Number.POSITIVE_INFINITY,
                       repeatType: "loop",
                     }}
-                    className="bg-amber-400 p-2 rounded-full"
+                    className="bg-amber-400 p-1.5 md:p-2 rounded-full"
                   >
-                    <MapPin size={20} className="text-amber-900" />
+                    <MapPin size={16} className="text-amber-900" />
                   </motion.div>
                 </motion.div>
 
                 <motion.div
-                  className="absolute bottom-1/3 right-1/3 bg-white/80 backdrop-blur-sm p-2 rounded-full shadow-lg cursor-pointer"
+                  className="absolute bottom-1/3 right-1/3 bg-white/80 backdrop-blur-sm p-1.5 md:p-2 rounded-full shadow-lg cursor-pointer hidden sm:block"
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
                   initial={{ opacity: 0 }}
@@ -347,11 +364,7 @@ export default function HomeSection() {
                   <motion.div
                     animate={{
                       scale: [1, 1.2, 1],
-                      boxShadow: [
-                        "0 0 0 0 rgba(217, 119, 6, 0.7)",
-                        "0 0 0 10px rgba(217, 119, 6, 0)",
-                        "0 0 0 0 rgba(217, 119, 6, 0)",
-                      ],
+                      opacity: [1, 0.8, 1],
                     }}
                     transition={{
                       duration: 2,
@@ -359,14 +372,15 @@ export default function HomeSection() {
                       repeatType: "loop",
                       delay: 0.7,
                     }}
-                    className="bg-amber-600 p-2 rounded-full"
+                    className="bg-amber-600 p-1.5 md:p-2 rounded-full"
                   >
-                    <Leaf size={20} className="text-white" />
+                    <Leaf size={16} className="text-white" />
                   </motion.div>
                 </motion.div>
 
                 {/* Gradient overlay to blend with content */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-amber-100/90"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-amber-100/90 lg:block hidden"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-amber-100/90 lg:hidden"></div>
               </div>
             </motion.div>
 
@@ -377,42 +391,44 @@ export default function HomeSection() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="h-full bg-gradient-to-br from-amber-100/90 via-amber-50/90 to-orange-50/90 backdrop-blur-sm p-8 md:p-12 rounded-r-3xl">
+              <div className="h-full bg-gradient-to-br from-amber-100/90 via-amber-50/90 to-orange-50/90 backdrop-blur-sm p-5 md:p-8 lg:p-12 rounded-b-3xl lg:rounded-b-none lg:rounded-r-3xl">
                 <div className="h-full flex flex-col justify-center">
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="flex items-center mb-6"
+                    className="flex items-center mb-4 md:mb-6"
                   >
-                    <div className="bg-gradient-to-r from-amber-600 to-orange-600 p-3 rounded-xl shadow-lg mr-4">
-                      <History size={28} className="text-white" />
+                    <div className="bg-gradient-to-r from-amber-600 to-orange-600 p-2 md:p-3 rounded-xl shadow-lg mr-3 md:mr-4">
+                      <History size={20} className="text-white" />
                     </div>
-                    <h3 className="text-2xl font-semibold text-amber-950">From Bihar's Wetlands to Your Home</h3>
+                    <h3 className="text-xl md:text-2xl font-semibold text-amber-950">
+                      From Bihar's Wetlands to Your Home
+                    </h3>
                   </motion.div>
 
                   <motion.div
-                    className="space-y-6"
+                    className="space-y-3 md:space-y-6"
                     variants={staggerContainer}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
                   >
                     <motion.div variants={fadeInUp} className="flex">
-                      <div className="mt-1 mr-4 text-amber-700">
-                        <Sparkles size={20} />
+                      <div className="mt-1 mr-3 md:mr-4 text-amber-700">
+                        <Sparkles size={16} className="md:w-5 md:h-5" />
                       </div>
-                      <p className="text-amber-900">
+                      <p className="text-amber-900 text-sm md:text-base">
                         Foster Makhana was born from a vision to bring the authentic taste and exceptional health
                         benefits of Bihar's traditional fox nuts to health-conscious consumers worldwide.
                       </p>
                     </motion.div>
 
                     <motion.div variants={fadeInUp} className="flex">
-                      <div className="mt-1 mr-4 text-amber-700">
-                        <Users size={20} />
+                      <div className="mt-1 mr-3 md:mr-4 text-amber-700">
+                        <Users size={16} className="md:w-5 md:h-5" />
                       </div>
-                      <p className="text-amber-900">
+                      <p className="text-amber-900 text-sm md:text-base">
                         Our journey began in the wetlands of Bihar, India, where Makhana has been cultivated for
                         generations. We work directly with local farmers, ensuring fair trade practices while preserving
                         traditional harvesting methods.
@@ -420,10 +436,10 @@ export default function HomeSection() {
                     </motion.div>
 
                     <motion.div variants={fadeInUp} className="flex">
-                      <div className="mt-1 mr-4 text-amber-700">
-                        <Heart size={20} />
+                      <div className="mt-1 mr-3 md:mr-4 text-amber-700">
+                        <Heart size={16} className="md:w-5 md:h-5" />
                       </div>
-                      <p className="text-amber-900">
+                      <p className="text-amber-900 text-sm md:text-base">
                         Every pack of Foster Makhana carries with it the rich heritage of Bihar and our commitment to
                         quality, sustainability, and the well-being of both our consumers and the communities we source
                         from.
@@ -431,13 +447,13 @@ export default function HomeSection() {
                     </motion.div>
                   </motion.div>
 
-                  {/* Timeline dots */}
-                  <div className="hidden md:flex justify-between mt-8 relative">
+                  {/* Timeline dots - hide on mobile */}
+                  <div className="hidden md:flex justify-between mt-6 md:mt-8 relative">
                     <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-300 to-orange-300 transform -translate-y-1/2"></div>
                     {[0, 1, 2, 3].map((_, i) => (
                       <motion.div
                         key={i}
-                        className="w-4 h-4 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 relative z-10"
+                        className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 relative z-10"
                         initial={{ scale: 0 }}
                         whileInView={{ scale: 1 }}
                         transition={{ delay: 0.2 * i, duration: 0.3 }}
@@ -467,7 +483,7 @@ export default function HomeSection() {
 
       {/* Health Benefits Section */}
       <motion.div
-        className="mb-24 py-16 bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl relative overflow-hidden"
+        className="mb-16 md:mb-24 py-8 md:py-16 bg-gradient-to-br from-amber-50 to-orange-50 rounded-3xl relative overflow-hidden"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -477,28 +493,29 @@ export default function HomeSection() {
         <div
           className="absolute inset-0 opacity-10"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895
+-2-2-2-2 .895-2 2 .895 2 2 2zM
 35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d97706' fillOpacity='0.1' fillRule='evenodd'/%3E%3C/svg%3E")`,
           }}
         ></div>
 
-        <motion.div className="text-center mb-12 relative z-10" variants={fadeInUp}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <motion.div className="text-center mb-8 md:mb-12 relative z-10" variants={fadeInUp}>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
             Amazing{" "}
             <span className="bg-gradient-to-r from-amber-900 to-orange-800 bg-clip-text text-transparent">
               Health Benefits
             </span>
           </h2>
-          <p className="text-amber-950 max-w-3xl mx-auto">
+          <p className="text-amber-950 max-w-3xl mx-auto px-2">
             Discover why Makhana is considered a superfood and how it can contribute to your overall well-being and
             health.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 px-4 relative z-10">
           {[
             {
-              icon: <Dumbbell className="h-12 w-12 text-amber-800" />,
+              icon: <Dumbbell className="h-10 w-10 md:h-12 md:w-12 text-amber-800" />,
               title: "Rich Source of Protein",
               description:
                 "With approximately 9.7g of protein per 100g, Makhana provides essential amino acids needed for muscle growth and repair.",
@@ -506,7 +523,7 @@ export default function HomeSection() {
               gradient: "from-amber-100/90 via-amber-50/90 to-orange-100/90",
             },
             {
-              icon: <Heart className="h-12 w-12 text-red-700" />,
+              icon: <Heart className="h-10 w-10 md:h-12 md:w-12 text-red-700" />,
               title: "Promotes Heart Health",
               description:
                 "Low in sodium and high in magnesium, Makhana helps regulate blood pressure and supports cardiovascular health.",
@@ -514,7 +531,7 @@ export default function HomeSection() {
               gradient: "from-orange-100/90 via-amber-50/90 to-amber-100/90",
             },
             {
-              icon: <Weight className="h-12 w-12 text-orange-800" />,
+              icon: <Weight className="h-10 w-10 md:h-12 md:w-12 text-orange-800" />,
               title: "Aids Weight Management",
               description:
                 "Low in calories and high in fiber, Makhana keeps you feeling full longer, helping to control appetite and manage weight.",
@@ -522,7 +539,7 @@ export default function HomeSection() {
               gradient: "from-amber-50/90 via-orange-100/90 to-amber-100/90",
             },
             {
-              icon: <Moon className="h-12 w-12 text-indigo-700" />,
+              icon: <Moon className="h-10 w-10 md:h-12 md:w-12 text-indigo-700" />,
               title: "Improves Sleep Quality",
               description:
                 "Contains magnesium and certain amino acids that help calm the nervous system and promote better sleep patterns.",
@@ -530,7 +547,7 @@ export default function HomeSection() {
               gradient: "from-amber-100/90 via-orange-50/90 to-amber-50/90",
             },
             {
-              icon: <Apple className="h-12 w-12 text-green-700" />,
+              icon: <Apple className="h-10 w-10 md:h-12 md:w-12 text-green-700" />,
               title: "Low Glycemic Index",
               description:
                 "Perfect for diabetics, Makhana helps maintain stable blood sugar levels due to its low glycemic index.",
@@ -538,28 +555,12 @@ export default function HomeSection() {
               gradient: "from-orange-50/90 via-amber-100/90 to-orange-100/90",
             },
             {
-              icon: <Sparkles className="h-12 w-12 text-amber-700" />,
+              icon: <Sparkles className="h-10 w-10 md:h-12 md:w-12 text-amber-700" />,
               title: "Anti-Aging Properties",
               description:
                 "Rich in antioxidants that fight free radicals, helping to slow down the aging process and maintain youthful skin.",
               delay: 0.5,
               gradient: "from-amber-100/90 via-orange-100/90 to-amber-50/90",
-            },
-            {
-              icon: <Utensils className="h-12 w-12 text-orange-700" />,
-              title: "Supports Digestive Health",
-              description:
-                "High fiber content aids digestion, prevents constipation, and promotes a healthy gut microbiome.",
-              delay: 0.6,
-              gradient: "from-orange-100/90 via-amber-50/90 to-orange-50/90",
-            },
-            {
-              icon: <Brain className="h-12 w-12 text-amber-900" />,
-              title: "Enhances Brain Function",
-              description:
-                "Contains essential nutrients that support cognitive function, memory, and overall brain health.",
-              delay: 0.7,
-              gradient: "from-amber-50/90 via-orange-100/90 to-amber-100/90",
             },
           ].map((benefit, index) => (
             <motion.div
@@ -588,12 +589,12 @@ export default function HomeSection() {
                 }}
               ></div>
 
-              <div className="relative p-6 z-10">
-                <div className="mb-4 bg-gradient-to-br from-amber-50/80 to-orange-50/80 w-16 h-16 rounded-full flex items-center justify-center backdrop-blur-sm shadow-inner">
+              <div className="relative p-4 md:p-6 z-10">
+                <div className="mb-3 md:mb-4 bg-gradient-to-br from-amber-50/80 to-orange-50/80 w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center backdrop-blur-sm shadow-inner">
                   {benefit.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-amber-950">{benefit.title}</h3>
-                <p className="text-amber-900">{benefit.description}</p>
+                <h3 className="text-lg md:text-xl font-semibold mb-1 md:mb-2 text-amber-950">{benefit.title}</h3>
+                <p className="text-amber-900 text-sm md:text-base">{benefit.description}</p>
               </div>
             </motion.div>
           ))}
@@ -602,20 +603,20 @@ export default function HomeSection() {
 
       {/* Customer Reviews Section */}
       <motion.div
-        className="mb-24"
+        className="mb-16 md:mb-24"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={staggerContainer}
       >
-        <motion.div className="text-center mb-12" variants={fadeInUp}>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <motion.div className="text-center mb-8 md:mb-12" variants={fadeInUp}>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
             What Our{" "}
             <span className="bg-gradient-to-r from-amber-900 to-orange-800 bg-clip-text text-transparent">
               Customers Say
             </span>
           </h2>
-          <p className="text-amber-950 max-w-3xl mx-auto">
+          <p className="text-amber-950 max-w-3xl mx-auto px-2">
             Don't just take our word for it. Here's what our customers have to say about Foster Makhana.
           </p>
         </motion.div>
@@ -668,23 +669,23 @@ export default function HomeSection() {
                       "I ordered in bulk for our office, and everyone loved it! Great alternative to unhealthy office snacks.",
                   },
                 ].map((review, index) => (
-                  <div key={index} className="min-w-full md:min-w-[33.333%] px-4">
-                    <div className="bg-white rounded-xl shadow-md p-6 h-full">
-                      <div className="flex items-center mb-4">
-                        <div className="bg-gradient-to-r from-amber-100 to-orange-100 w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold text-amber-800">
+                  <div key={index} className={`min-w-full ${isMobile ? "" : "md:min-w-[33.333%]"} px-2 md:px-4`}>
+                    <div className="bg-white rounded-xl shadow-md p-4 md:p-6 h-full">
+                      <div className="flex items-center mb-3 md:mb-4">
+                        <div className="bg-gradient-to-r from-amber-100 to-orange-100 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-lg md:text-xl font-bold text-amber-800">
                           {review.name.charAt(0)}
                         </div>
-                        <div className="ml-4">
-                          <h4 className="font-semibold text-amber-950">{review.name}</h4>
-                          <p className="text-sm text-amber-700">{review.location}</p>
+                        <div className="ml-3 md:ml-4">
+                          <h4 className="font-semibold text-amber-950 text-sm md:text-base">{review.name}</h4>
+                          <p className="text-xs md:text-sm text-amber-700">{review.location}</p>
                         </div>
                       </div>
-                      <div className="flex mb-3">
+                      <div className="flex mb-2 md:mb-3">
                         {Array.from({ length: 5 }).map((_, i) => (
                           <svg
                             key={i}
                             xmlns="http://www.w3.org/2000/svg"
-                            className={`h-5 w-5 ${i < review.rating ? "text-amber-500" : "text-gray-300"}`}
+                            className={`h-4 w-4 md:h-5 md:w-5 ${i < review.rating ? "text-amber-500" : "text-gray-300"}`}
                             viewBox="0 0 20 20"
                             fill="currentColor"
                           >
@@ -696,7 +697,7 @@ export default function HomeSection() {
                           </svg>
                         ))}
                       </div>
-                      <p className="text-amber-900">{review.feedback}</p>
+                      <p className="text-amber-900 text-sm md:text-base">{review.feedback}</p>
                     </div>
                   </div>
                 ))}
@@ -707,17 +708,17 @@ export default function HomeSection() {
           {/* Navigation buttons */}
           <button
             onClick={handlePrevReview}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white rounded-full p-2 shadow-md z-10 text-amber-900 hover:text-amber-700 transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white rounded-full p-1.5 md:p-2 shadow-md z-10 text-amber-900 hover:text-amber-700 transition-colors"
             aria-label="Previous review"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={20} />
           </button>
           <button
             onClick={handleNextReview}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white rounded-full p-2 shadow-md z-10 text-amber-900 hover:text-amber-700 transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white rounded-full p-1.5 md:p-2 shadow-md z-10 text-amber-900 hover:text-amber-700 transition-colors"
             aria-label="Next review"
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={20} />
           </button>
         </div>
       </motion.div>
