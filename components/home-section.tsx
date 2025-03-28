@@ -158,11 +158,7 @@ export default function HomeSection({ scrollToSection }: { scrollToSection: (sec
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-16">
-<<<<<<< HEAD
-      {/* Hero Section */}
-=======
       {/* Hero Section - Updated with semantic HTML */}
->>>>>>> main
       <motion.div
         className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-12 mb-16 md:mb-24"
         initial="hidden"
@@ -171,44 +167,29 @@ export default function HomeSection({ scrollToSection }: { scrollToSection: (sec
         variants={staggerContainer}
       >
         <motion.div className="lg:w-1/2 w-full text-center lg:text-left" variants={fadeInUp}>
-<<<<<<< HEAD
-          <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 leading-tight">
-=======
           <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 leading-tight">
->>>>>>> main
             <span className="bg-gradient-to-r from-amber-900 to-orange-800 bg-clip-text text-transparent">
               Premium Quality
             </span>
             <br />
             Fox Nuts for Your Health
-<<<<<<< HEAD
-          </h1>
-=======
           </h2>
->>>>>>> main
           <p className="text-amber-950 text-base md:text-lg mb-6 md:mb-8">
             Experience the authentic taste and exceptional health benefits of our premium Makhana (Fox Nuts), carefully
             sourced and processed to preserve their natural goodness.
           </p>
-          {/* Update the button in the hero section to use the scrollToSection function */}
           <motion.button
             className="bg-gradient-to-r from-amber-800 to-orange-800 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full font-medium flex items-center gap-2 hover:shadow-lg transition-shadow mx-auto lg:mx-0"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => scrollToSection("contact")}
-<<<<<<< HEAD
-=======
             aria-label="Explore our products and contact us"
->>>>>>> main
           >
-            Enquire Now <ArrowRight size={18} aria-hidden="true" />
+            Explore Products <ArrowRight size={18} aria-hidden="true" />
           </motion.button>
         </motion.div>
         <motion.div className="lg:w-1/2 w-full mb-6 lg:mb-0" variants={fadeInUp}>
           <div className="relative h-[250px] sm:h-[300px] md:h-[400px] w-full rounded-2xl overflow-hidden shadow-xl">
-<<<<<<< HEAD
-            <Image src="/images/makhana1.jpeg" alt="Premium Makhana in a rustic bowl" fill className="object-cover" priority />
-=======
             <Image
               src="/images/makhana1.jpeg"
               alt="Premium Makhana (Fox Nuts) in a rustic bowl"
@@ -216,7 +197,6 @@ export default function HomeSection({ scrollToSection }: { scrollToSection: (sec
               className="object-cover"
               priority
             />
->>>>>>> main
             <div className="absolute inset-0 bg-gradient-to-tr from-amber-700/10 to-orange-700/10 mix-blend-overlay"></div>
           </div>
         </motion.div>
@@ -521,8 +501,7 @@ export default function HomeSection({ scrollToSection }: { scrollToSection: (sec
         <div
           className="absolute inset-0 opacity-10"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895
--2-2-2-2 .895-2 2 .895 2 2 2zM
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM
 35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23d97706' fillOpacity='0.1' fillRule='evenodd'/%3E%3C/svg%3E")`,
           }}
         ></div>

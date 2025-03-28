@@ -64,11 +64,7 @@ export default function Navbar({ activeSection, scrollToSection, scrollY }: Navb
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-<<<<<<< HEAD
-      <div className="container mx-auto px-4 flex justify-between items-center h-14 md:h-16">
-=======
       <div className="container mx-auto px-4 flex justify-between items-center h-[72px] md:h-[72px]">
->>>>>>> main
         <div className="flex items-center">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex items-center">
             <Image
@@ -139,14 +135,7 @@ export default function Navbar({ activeSection, scrollToSection, scrollY }: Navb
                     activeSection === section ? "text-amber-300" : "text-amber-100/90"
                   }`}
                   whileTap={{ scale: 0.95 }}
-<<<<<<< HEAD
-                  onClick={() => {
-                    scrollToSection(section)
-                    setIsMenuOpen(false)
-                  }}
-=======
                   onClick={() => handleMobileNavClick(section)}
->>>>>>> main
                 >
                   {section}
                 </motion.button>

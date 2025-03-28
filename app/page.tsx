@@ -61,24 +61,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-200/70">
-<<<<<<< HEAD
-=======
       <StructuredData />
       <SeoHead activeSection={activeSection} />
 
->>>>>>> main
       <Navbar activeSection={activeSection} scrollToSection={scrollToSection} scrollY={scrollY} />
 
       <FloatingCallButton />
 
       <main className="pt-14 md:pt-16">
-<<<<<<< HEAD
-        <section id="home">
-          <HomeSection scrollToSection={scrollToSection} />
-        </section>
-
-        <section id="contact" className="mb-8">
-=======
         <section id="home" aria-labelledby="home-heading">
           <h1 id="home-heading" className="sr-only">
             Foster Makhana - Premium Quality Fox Nuts
@@ -90,7 +80,6 @@ export default function Home() {
           <h2 id="contact-heading" className="sr-only">
             Contact Foster Makhana
           </h2>
->>>>>>> main
           <ContactSection />
         </section>
       </main>
