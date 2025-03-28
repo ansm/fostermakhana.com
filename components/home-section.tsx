@@ -158,7 +158,11 @@ export default function HomeSection({ scrollToSection }: { scrollToSection: (sec
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-16">
+<<<<<<< HEAD
       {/* Hero Section */}
+=======
+      {/* Hero Section - Updated with semantic HTML */}
+>>>>>>> main
       <motion.div
         className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-12 mb-16 md:mb-24"
         initial="hidden"
@@ -167,13 +171,21 @@ export default function HomeSection({ scrollToSection }: { scrollToSection: (sec
         variants={staggerContainer}
       >
         <motion.div className="lg:w-1/2 w-full text-center lg:text-left" variants={fadeInUp}>
+<<<<<<< HEAD
           <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 leading-tight">
+=======
+          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 leading-tight">
+>>>>>>> main
             <span className="bg-gradient-to-r from-amber-900 to-orange-800 bg-clip-text text-transparent">
               Premium Quality
             </span>
             <br />
             Fox Nuts for Your Health
+<<<<<<< HEAD
           </h1>
+=======
+          </h2>
+>>>>>>> main
           <p className="text-amber-950 text-base md:text-lg mb-6 md:mb-8">
             Experience the authentic taste and exceptional health benefits of our premium Makhana (Fox Nuts), carefully
             sourced and processed to preserve their natural goodness.
@@ -184,17 +196,33 @@ export default function HomeSection({ scrollToSection }: { scrollToSection: (sec
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => scrollToSection("contact")}
+<<<<<<< HEAD
+=======
+            aria-label="Explore our products and contact us"
+>>>>>>> main
           >
-            Explore Products <ArrowRight size={18} />
+            Enquire Now <ArrowRight size={18} aria-hidden="true" />
           </motion.button>
         </motion.div>
         <motion.div className="lg:w-1/2 w-full mb-6 lg:mb-0" variants={fadeInUp}>
           <div className="relative h-[250px] sm:h-[300px] md:h-[400px] w-full rounded-2xl overflow-hidden shadow-xl">
+<<<<<<< HEAD
             <Image src="/images/makhana1.jpeg" alt="Premium Makhana in a rustic bowl" fill className="object-cover" priority />
+=======
+            <Image
+              src="/images/makhana1.jpeg"
+              alt="Premium Makhana (Fox Nuts) in a rustic bowl"
+              fill
+              className="object-cover"
+              priority
+            />
+>>>>>>> main
             <div className="absolute inset-0 bg-gradient-to-tr from-amber-700/10 to-orange-700/10 mix-blend-overlay"></div>
           </div>
         </motion.div>
       </motion.div>
+
+      {/* Continue with the rest of the component... */}
 
       {/* About Makhana Section */}
       <motion.div

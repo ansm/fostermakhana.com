@@ -71,7 +71,11 @@ export default function ContactSection() {
           <span className="bg-gradient-to-r from-amber-900 to-orange-800 bg-clip-text text-transparent">Touch</span>
         </motion.h2>
         <motion.p className="text-amber-950 max-w-3xl mx-auto px-2" variants={fadeInUp}>
+<<<<<<< HEAD
           Have questions about our products or want to place a bulk order? We'd love to hear from you!
+=======
+          Have questions about our premium fox nuts or want to place a bulk order? We'd love to hear from you!
+>>>>>>> main
         </motion.p>
       </motion.div>
 
@@ -84,7 +88,11 @@ export default function ContactSection() {
       >
         <motion.div variants={fadeInUp}>
           <div className="bg-white p-5 md:p-8 rounded-xl shadow-md h-full">
+<<<<<<< HEAD
             <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-amber-950">Send us a Message</h3>
+=======
+            <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-amber-950">Send us a Message or Enquiry</h3>
+>>>>>>> main
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label htmlFor="name" className="block text-sm font-medium text-amber-900 mb-1">
