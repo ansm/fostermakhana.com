@@ -41,9 +41,9 @@ export default function Footer({ scrollToSection }: FooterProps) {
                 {/* FSSAI Logo and License Number - Updated to stack vertically */}
                 <div className="flex flex-col items-center">
                   <div className="bg-white rounded-md p-1">
-                    <Image src="/images/fssai.png" alt="FSSAI Logo" width={80} height={25} className="h-auto" />
+                    <Image src="/images/fssai.png" alt="FSSAI Logo" width={50} height={25} className="h-auto" />
                   </div>
-                  <span className="text-amber-200 font-medium mt-1">10425310000067</span>
+                  <span className="text-amber-200 text-xs md:text-sm font-medium mt-1">License No: 10425310000067</span>
                 </div>
               </div>
             </div>

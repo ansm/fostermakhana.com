@@ -30,6 +30,29 @@ export default function Navbar({ activeSection, scrollToSection, scrollY }: Navb
     setIsMenuOpen(!isMenuOpen)
   }
 
+  // Direct implementation of mobile navigation
+  const handleMobileNavClick = (sectionId: string) => {
+    // Close the menu first
+    setIsMenuOpen(false)
+
+    // Then use setTimeout to ensure the menu closing animation completes
+    setTimeout(() => {
+      // Find the section element
+      const section = document.getElementById(sectionId)
+      if (section) {
+        // Calculate position accounting for header height
+        const headerHeight = 70
+        const sectionPosition = section.getBoundingClientRect().top + window.pageYOffset - headerHeight
+
+        // Scroll to the section
+        window.scrollTo({
+          top: sectionPosition,
+          behavior: "smooth",
+        })
+      }
+    }, 100)
+  }
+
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -41,7 +64,7 @@ export default function Navbar({ activeSection, scrollToSection, scrollY }: Navb
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="container mx-auto px-4 flex justify-between items-center h-14 md:h-16">
+      <div className="container mx-auto px-4 flex justify-between items-center h-[72px] md:h-[72px]">
         <div className="flex items-center">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex items-center">
             <Image
@@ -112,10 +135,7 @@ export default function Navbar({ activeSection, scrollToSection, scrollY }: Navb
                     activeSection === section ? "text-amber-300" : "text-amber-100/90"
                   }`}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => {
-                    scrollToSection(section)
-                    setIsMenuOpen(false)
-                  }}
+                  onClick={() => handleMobileNavClick(section)}
                 >
                   {section}
                 </motion.button>
