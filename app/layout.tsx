@@ -3,6 +3,7 @@ import "./globals.css"
 import { baseMetadata } from "./metadata"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import GoogleAnalytics from "@/components/google-analytics"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <GoogleAnalytics />
         <link rel="icon" href="/images/logo.ico" />
         <link rel="shortcut icon" href="/images/logo.ico" />
         <link rel="apple-touch-icon" href="/images/logo.ico" />
