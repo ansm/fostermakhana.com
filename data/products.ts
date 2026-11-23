@@ -9,6 +9,7 @@ export type Product = {
 }
 
 export const products: Product[] = [
+  { slug: "raw-makhana", name: "Raw Makhana", category: "Raw makhana", image: "/images/products/raw-makhana.png", heroImage: "/images/products/raw-makhana.png", note: "Premium raw makhana, ready for roasting, seasoning, or custom processing.", accent: "#d6b477" },
   { slug: "cheese", name: "Roasted Makhana — Cheese", category: "Flavoured packet", image: "/images/products/cheese1.png", heroImage: "/images/products/cheese1.png", note: "A savoury, easy-to-love flavour in Foster's product range.", accent: "#c8a35f" },
   { slug: "cream-onion", name: "Roasted Makhana — Cream & Onion", category: "Flavoured packet", image: "/images/products/cream-onion1.png", heroImage: "/images/products/cream-onion1.png", note: "A familiar creamy savoury profile, presented in Foster's signature pack.", accent: "#d0c6a2" },
   { slug: "peri-peri", name: "Roasted Makhana — Peri Peri", category: "Flavoured packet", image: "/images/products/peri-peri1.png", heroImage: "/images/products/peri-peri1.png", note: "A bold, spirited flavour for a more adventurous crunch.", accent: "#c96b3d" },
