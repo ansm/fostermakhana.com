@@ -201,6 +201,15 @@ button, a { color: inherit; } button { font: inherit; }
 .contact-copy h2 { font-size: clamp(46px, 5.6vw, 85px); }
 @media (max-width: 700px) { .contact-copy h2 { font-size: clamp(42px, 12.8vw, 66px); } }
 .reference-footer .footer-bottom { border-top: 0; }
+.footer-fssai span { line-height: 1.45; }
+.footer-gst { display: block; margin-top: 10px; color: #fff4da; font-size: 13px; }
+.reference-footer .footer-bottom { justify-content: flex-end; }.reference-footer .footer-bottom > span:nth-child(2) { display: none; }
+.reference-footer .footer-fssai { background: transparent; padding-left: 0; padding-right: 0; color: #fff4da; }
+.reference-footer .footer-fssai img { background: transparent; mix-blend-mode: multiply; }
+.reference-footer .footer-bottom { display: none; }.footer-copyright { display: block; margin-top: 18px; color: #fff4da; font-size: 13px; }
+.footer-main > div:first-child .footer-copyright { grid-column: 1 / -1; }
+.footer-fssai-label { color: #fff4da; font-size: 13px; letter-spacing: .04em; }
+@media (max-width: 520px) { .reference-footer .footer-bottom { text-align: right; } }
 .range-strip { width: calc(100% - 14vw); max-width: none; height: min(24vw, 280px); margin: 0 7vw; }.range-strip .range-why-image { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 @media (max-width: 700px) { .range-strip { width: 100%; height: 125px; margin: 0; } }
 .contact-card > div:first-child > span { display: flex; align-items: center; gap: 12px; white-space: nowrap; }.contact-card > div:first-child > span a { display: inline; }
